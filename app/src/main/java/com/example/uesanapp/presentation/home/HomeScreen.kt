@@ -1,33 +1,79 @@
 package com.example.uesanapp.presentation.home
 
+import androidx.compose.foundation.Image
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
+import androidx.compose.foundation.layout.Row
+import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.fillMaxSize
-import androidx.compose.material3.Button
+import androidx.compose.foundation.layout.height
+import androidx.compose.foundation.layout.padding
+import androidx.compose.foundation.layout.size
+import androidx.compose.foundation.layout.statusBarsPadding
+import androidx.compose.foundation.lazy.LazyColumn
+import androidx.compose.foundation.lazy.items
+import androidx.compose.material3.Card
+import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.layout.ContentScale
+import androidx.compose.ui.unit.dp
 import androidx.navigation.NavController
+import coil.compose.rememberAsyncImagePainter
+import com.example.uesanapp.data.model.CountryModel
+
+val mockCountries = listOf(
+    CountryModel("Colombia", 5, "https://flagpedia.net/data/flags/w1160/co.webp"),
+    CountryModel("Francia", 3, "https://flagpedia.net/data/flags/w1160/fr.webp"),
+    CountryModel("Brasil", 8, "https://flagpedia.net/data/flags/w1160/br.webp"),
+    CountryModel("España", 2, "https://flagpedia.net/data/flags/w1160/es.webp"),
+    CountryModel("Argentina", 7, "https://flagpedia.net/data/flags/w1160/ar.webp"),
+    CountryModel("Mexico", 4, "https://flagpedia.net/data/flags/w1160/mx.webp"),
+    CountryModel("Chile", 6, "https://flagpedia.net/data/flags/w1160/cl.webp"),
+    CountryModel("Peru", 50, "https://flagpedia.net/data/flags/w1160/pe.webp"),
+
+    )
 
 @Composable
 fun HomeScreen(navController: NavController) {
     Column(
-        modifier = Modifier.fillMaxSize(),
+        modifier = Modifier
+            .padding(16.dp)
+            .fillMaxSize()
+            .statusBarsPadding(),
         verticalArrangement = Arrangement.Center,
         horizontalAlignment = Alignment.CenterHorizontally
     ) {
 
-        Text("Bienvenido a la Pantalla Principal")
+        Text("Ranking FIFA 2026")
+        Spacer(Modifier.height(8.dp))
 
-        Button(
-            onClick = {
-                navController.navigate("login")
+        LazyColumn {
+            items(mockCountries) { country ->
+                Card(
+                    modifier = Modifier
+                        .fillMaxSize()
+                        .padding(vertical = 16.dp)
+                ) {
+                    Row(modifier = Modifier.padding(12.dp)) {
+                        Image(
+                            contentDescription = country.name,
+                            modifier = Modifier.size(64.dp),
+                            contentScale = ContentScale.Crop,
+                            painter = rememberAsyncImagePainter(country.imageUrl)
+                        )
+                        Spacer(modifier = Modifier.height(8.dp))
+                        Column {
+                            Text(country.name, style = MaterialTheme.typography.titleMedium)
+                            Text("Ranking FIFA 2026: ${country.ranking}")
+                        }
+                    }
+                }
             }
-        ) {
-            Text("Continuar")
-
         }
+
     }
 
 }
