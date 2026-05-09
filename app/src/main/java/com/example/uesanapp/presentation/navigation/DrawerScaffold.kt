@@ -88,6 +88,9 @@ fun DrawerScaffold(
             }
         ) { paddingValues ->
             Box(modifier = Modifier.padding(paddingValues))
+            {
+                content()
+            }
         }
 
     }

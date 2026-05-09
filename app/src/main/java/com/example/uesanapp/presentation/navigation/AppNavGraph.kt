@@ -9,14 +9,20 @@ import com.example.uesanapp.presentation.auth.RegisterScreen
 import com.example.uesanapp.presentation.home.HomeScreen
 
 @Composable
-fun AppNavGraph(){
+fun AppNavGraph() {
     val navController = rememberNavController()
 
-    NavHost(navController = navController,
-        startDestination = "register") {
+    NavHost(
+        navController = navController,
+        startDestination = "login"
+    ) {
         composable("register") { RegisterScreen(navController) }
         composable("login") { LoginScreen(navController) }
-        composable("home") { HomeScreen(navController) }
+        composable("home") {
+            DrawerScaffold(navController) {
+                HomeScreen()
+            }
+        }
     }
 }
 

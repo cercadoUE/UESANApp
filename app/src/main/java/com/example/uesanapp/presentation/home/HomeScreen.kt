@@ -20,7 +20,6 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.layout.ContentScale
 import androidx.compose.ui.unit.dp
-import androidx.navigation.NavController
 import coil.compose.rememberAsyncImagePainter
 import com.example.uesanapp.data.model.CountryModel
 
@@ -37,7 +36,7 @@ val mockCountries = listOf(
     )
 
 @Composable
-fun HomeScreen(navController: NavController) {
+fun HomeScreen() {
     Column(
         modifier = Modifier
             .padding(16.dp)
