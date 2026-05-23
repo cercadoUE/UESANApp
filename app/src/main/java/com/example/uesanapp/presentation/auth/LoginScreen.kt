@@ -8,6 +8,7 @@ import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
 import androidx.compose.material3.Button
+import androidx.compose.material3.TextButton
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.OutlinedTextField
 import androidx.compose.material3.Text
@@ -64,6 +65,12 @@ fun LoginScreen(navController: NavController){
             modifier = Modifier.fillMaxWidth()
         ) {
             Text("Ingresar")
+        }
+
+        Spacer(modifier = Modifier.height(16.dp))
+
+        TextButton(onClick = { navController.navigate("register") }) {
+            Text("¿No tienes cuenta? Regístrate aquí")
         }
 
     }
