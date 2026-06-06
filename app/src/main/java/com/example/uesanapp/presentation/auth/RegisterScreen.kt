@@ -1,5 +1,6 @@
 package com.example.uesanapp.presentation.auth
 
+import android.widget.Toast
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Spacer
@@ -17,11 +18,15 @@ import androidx.compose.runtime.Composable
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
+import androidx.compose.runtime.rememberCoroutineScope
 import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.unit.dp
 import androidx.navigation.NavController
+import com.example.uesanapp.data.remote.FirebaseAuthManager
+import kotlinx.coroutines.launch
 
 @Composable
 fun RegisterScreen(navController: NavController) {
@@ -31,12 +36,17 @@ fun RegisterScreen(navController: NavController) {
     var confirmPassword by remember { mutableStateOf("") }
 
     Column(
-        modifier = Modifier.padding(16.dp).fillMaxSize().statusBarsPadding(),
+        modifier = Modifier
+            .padding(16.dp)
+            .fillMaxSize()
+            .statusBarsPadding(),
         verticalArrangement = Arrangement.Center,
         horizontalAlignment = Alignment.CenterHorizontally
     ) {
-        Text("Registro de Usuario",
-            style = MaterialTheme.typography.titleLarge)
+        Text(
+            "Registro de Usuario",
+            style = MaterialTheme.typography.titleLarge
+        )
 
         OutlinedTextField(
             value = name,
@@ -67,13 +77,45 @@ fun RegisterScreen(navController: NavController) {
             modifier = Modifier.fillMaxWidth()
         )
 
+        val scope = rememberCoroutineScope()
+        val context = LocalContext.current
+
         Button(
             onClick = {
+                if (
+                    name.isNotBlank() &&
+                    email.isNotBlank() &&
+                    password.isNotBlank() &&
+                    password == confirmPassword
+                ) {
+                    scope.launch {
+                        val result = FirebaseAuthManager
+                            .registrarUser(name, email, password)
 
-                if(name.isNotBlank() && email.isNotBlank() && password.isNotBlank() &&
-                    password == confirmPassword)
-                {
-                    navController.navigate("login")
+                        result.onSuccess {
+                            Toast.makeText(
+                                context,
+                                "Registro exitoso",
+                                Toast.LENGTH_SHORT
+                            ).show()
+
+                            navController.navigate("login")
+                        }
+
+                        result.onFailure {
+                            Toast.makeText(
+                                context,
+                                "Error: ${it.message}",
+                                Toast.LENGTH_LONG
+                            ).show()
+                        }
+                    }
+                } else {
+                    Toast.makeText(
+                        context,
+                        "Completa los campos correctamente",
+                        Toast.LENGTH_SHORT
+                    ).show()
                 }
             },
             modifier = Modifier.fillMaxWidth()

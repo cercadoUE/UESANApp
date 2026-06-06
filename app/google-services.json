@@ -1,0 +1,29 @@
+{
+  "project_info": {
+    "project_number": "996307681409",
+    "project_id": "cercado-uesan-202601",
+    "storage_bucket": "cercado-uesan-202601.firebasestorage.app"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:996307681409:android:6f56e9d192f3830957cd80",
+        "android_client_info": {
+          "package_name": "com.example.uesanapp"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyBdhJlecnWIIckfGCNu5iOQrTO2VdhWikw"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
