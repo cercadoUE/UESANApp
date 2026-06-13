@@ -4,6 +4,7 @@ import androidx.compose.runtime.Composable
 import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
 import androidx.navigation.compose.rememberNavController
+import com.example.uesanapp.presentation.apifootball.ApiFootballScreen
 import com.example.uesanapp.presentation.auth.LoginScreen
 import com.example.uesanapp.presentation.auth.RegisterScreen
 import com.example.uesanapp.presentation.favorites.FavoritesScreen
@@ -33,6 +34,11 @@ fun AppNavGraph() {
         composable("favorites") {
             DrawerScaffold(navController) {
                 FavoritesScreen()
+            }
+        }
+        composable("Football") {
+            DrawerScaffold(navController) {
+                ApiFootballScreen()
             }
         }
     }

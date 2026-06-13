@@ -32,11 +32,11 @@ import androidx.compose.runtime.rememberCoroutineScope
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
-import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import androidx.navigation.NavController
+import com.example.uesanapp.data.remote.FirebaseAuthManager
 import com.example.uesanapp.ui.theme.WorldCupGold
 import com.example.uesanapp.ui.theme.WorldCupGreen
 import kotlinx.coroutines.launch
@@ -118,11 +118,37 @@ fun DrawerScaffold(
                     NavigationDrawerItem(
                         label = { Text("Favoritos") },
                         selected = false,
-                        icon = { Icon(Icons.Filled.Star, contentDescription = null, tint = WorldCupGold) },
+                        icon = {
+                            Icon(
+                                Icons.Filled.Star,
+                                contentDescription = null,
+                                tint = WorldCupGold
+                            )
+                        },
                         onClick = {
                             navController.navigate("favorites")
                         }
                     )
+
+                    //Football
+                    NavigationDrawerItem(
+                        label = { Text("Football") },
+                        selected = false,
+                        onClick = {
+                            navController.navigate("Football")
+                        }
+                    )
+
+                    //Logout
+                    NavigationDrawerItem(
+                        label = { Text("Logout") },
+                        selected = false,
+                        onClick = {
+                            FirebaseAuthManager.logout()
+                            navController.navigate("login")
+                        }
+                    )
+
                 }
             }
         }
